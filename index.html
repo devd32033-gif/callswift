@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CallSwift - Telecaller CRM</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📞</text></svg>" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0B132B 0%, #1C2541 50%, #0B0C10 100%);
+            color: #E0E6ED;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+        header {
+            text-align: center; padding: 60px 0 40px;
+            border-bottom: 1px solid rgba(92, 142, 255, 0.15);
+        }
+        header h1 {
+            font-size: 42px; font-weight: 800;
+            background: linear-gradient(135deg, #5C8EFF, #4F46E5);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        header p { color: #90CAF9; margin-top: 8px; font-size: 18px; }
+        nav {
+            display: flex; justify-content: center; gap: 20px;
+            padding: 24px 0; flex-wrap: wrap;
+        }
+        nav a {
+            color: #90CAF9; text-decoration: none; font-weight: 600;
+            padding: 8px 20px; border-radius: 8px;
+            transition: all 0.2s; font-size: 15px;
+            border: 1px solid rgba(92, 142, 255, 0.2);
+        }
+        nav a:hover { background: rgba(92, 142, 255, 0.1); border-color: #5C8EFF; }
+        section { padding: 60px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        section:last-of-type { border-bottom: none; }
+        h2 {
+            font-size: 28px; font-weight: 700; margin-bottom: 24px;
+            color: #fff;
+        }
+        h3 { font-size: 20px; font-weight: 600; margin: 24px 0 12px; color: #90CAF9; }
+        p, li { color: #B0BEC5; font-size: 16px; margin-bottom: 12px; }
+        ul { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 8px; }
+        .card {
+            background: rgba(22, 27, 38, 0.8);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 32px; margin-bottom: 24px;
+        }
+        .card strong { color: #fff; }
+        .badge {
+            display: inline-block;
+            background: rgba(92, 142, 255, 0.15);
+            color: #90CAF9; padding: 4px 14px; border-radius: 20px;
+            font-size: 13px; font-weight: 600; margin-bottom: 16px;
+            border: 1px solid rgba(92, 142, 255, 0.3);
+        }
+        .steps { counter-reset: step; }
+        .step {
+            counter-increment: step;
+            padding: 20px 24px 20px 60px;
+            background: rgba(22, 27, 38, 0.6);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; margin-bottom: 16px;
+            position: relative;
+        }
+        .step::before {
+            content: counter(step);
+            position: absolute; left: 16px; top: 18px;
+            width: 30px; height: 30px;
+            background: linear-gradient(135deg, #5C8EFF, #4F46E5);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 700; font-size: 14px;
+        }
+        .step h4 { color: #fff; margin-bottom: 6px; font-size: 16px; }
+        .step p { margin-bottom: 0; font-size: 15px; }
+        .email-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #5C8EFF, #4F46E5);
+            color: #fff; padding: 14px 32px; border-radius: 12px;
+            text-decoration: none; font-weight: 700; font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+        }
+        .email-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(92, 142, 255, 0.3); }
+        footer {
+            text-align: center; padding: 40px 0;
+            color: #5A6B7C; font-size: 14px;
+        }
+        footer a { color: #90CAF9; text-decoration: none; }
+        .highlight-box {
+            background: rgba(255, 152, 0, 0.08);
+            border: 1px solid rgba(255, 152, 0, 0.25);
+            border-radius: 12px; padding: 20px;
+            margin-top: 16px;
+        }
+        .highlight-box p { color: #FFB74D; margin-bottom: 0; font-size: 14px; }
+        @media (max-width: 600px) {
+            header h1 { font-size: 28px; }
+            header p { font-size: 15px; }
+            .container { padding: 0 16px; }
+            section { padding: 40px 0; }
+            .card { padding: 20px; }
+            .step { padding: 16px 16px 16px 52px; }
+            .step::before { left: 12px; top: 14px; width: 26px; height: 26px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>📞 CallSwift</h1>
+        <p>Intelligent Telecaller CRM — Privacy First</p>
+        <nav>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#delete">Delete Account</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- ─── PRIVACY POLICY ─── -->
+    <section id="privacy">
+        <span class="badge">🔒 Last updated: May 21, 2026</span>
+        <h2>Privacy Policy</h2>
+        <div class="card">
+            <p>CallSwift ("we", "our", or "us") is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use our telecaller CRM application.</p>
+        </div>
+
+        <div class="card">
+            <h3>1. Information We Collect</h3>
+            <ul>
+                <li><strong>Account Information:</strong> Name, email address, phone number, and profile photo when you register.</li>
+                <li><strong>Lead Data:</strong> Contact details and call notes you enter into the CRM (phone numbers, names, disposition notes).</li>
+                <li><strong>Call Metadata:</strong> Call duration, timestamp, and disposition selections made within the app.</li>
+                <li><strong>Device Information:</strong> Device model, OS version, and unique device identifiers for analytics and crash reporting.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>2. How We Use Your Information</h3>
+            <ul>
+                <li>To provide and maintain the CRM service</li>
+                <li>To synchronize lead data across your devices via secure cloud storage</li>
+                <li>To improve app performance and fix bugs</li>
+                <li>To send follow-up reminders you schedule</li>
+                <li>To communicate with you about service updates or support requests</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>3. Data Storage &amp; Security</h3>
+            <p>All lead and call data is stored securely using <strong>Google Firebase</strong> (Firestore) with encryption in transit (TLS) and at rest. We also maintain a local Room database on your device for offline access. We implement industry-standard security measures to prevent unauthorized access.</p>
+        </div>
+
+        <div class="card">
+            <h3>4. Third-Party Services</h3>
+            <ul>
+                <li><strong>Firebase (Google):</strong> Authentication, Firestore database, and crash reporting</li>
+                <li><strong>Cloud Notifications:</strong> For delivering follow-up reminders</li>
+            </ul>
+            <p>These services have their own privacy policies governing data handling.</p>
+        </div>
+
+        <div class="card">
+            <h3>5. Data Retention</h3>
+            <p>We retain your account data and lead information for as long as your account is active. Upon account deletion, all associated data is permanently removed from our servers within <strong>30 days</strong>.</p>
+        </div>
+
+        <div class="card">
+            <h3>6. Your Rights</h3>
+            <ul>
+                <li>Access your personal data at any time within the app</li>
+                <li>Export your data by contacting our support team</li>
+                <li>Delete your account and associated data at any time</li>
+                <li>Withdraw consent for data collection by uninstalling the app</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>7. Children's Privacy</h3>
+            <p>CallSwift is not intended for users under the age of 16. We do not knowingly collect data from children.</p>
+        </div>
+
+        <div class="card">
+            <h3>8. Changes to This Policy</h3>
+            <p>We may update this policy from time to time. Significant changes will be notified via the app or email.</p>
+        </div>
+
+        <div class="card" id="contact">
+            <h3>9. Contact Us</h3>
+            <p>For any questions, data requests, or support:</p>
+            <a class="email-link" href="mailto:aacrazyenterprises@gmail.com">📧 aacrazyenterprises@gmail.com</a>
+        </div>
+    </section>
+
+    <!-- ─── DELETE ACCOUNT ─── -->
+    <section id="delete">
+        <span class="badge">🗑️ Account Deletion</span>
+        <h2>Delete Your Account</h2>
+        <div class="card">
+            <p>You can request permanent deletion of your CallSwift account and all associated data at any time. Follow the steps below to initiate the process.</p>
+        </div>
+
+        <h3>What Gets Deleted</h3>
+        <div class="card">
+            <ul>
+                <li>Your profile information (name, email, phone)</li>
+                <li>All lead contacts and call records you created</li>
+                <li>Follow-up reminders and notification history</li>
+                <li>Voice notes associated with your calls</li>
+                <li>Analytics data linked to your account</li>
+            </ul>
+            <div class="highlight-box">
+                <p>⚠️ This action is irreversible. Once your account is deleted, the data cannot be recovered.</p>
+            </div>
+        </div>
+
+        <h3>How to Request Deletion</h3>
+        <div class="steps">
+            <div class="step">
+                <h4>Option A — Via App</h4>
+                <p>Go to <strong>Settings → Account → Delete Account</strong> inside the CallSwift app and follow the on-screen confirmation.</p>
+            </div>
+            <div class="step">
+                <h4>Option B — Via Email</h4>
+                <p>Send an email from your registered email address to <strong>aacrazyenterprises@gmail.com</strong> with the subject line <em>"Delete My Account"</em>. Include your registered phone number for verification.</p>
+            </div>
+        </div>
+
+        <h3>Timeline</h3>
+        <div class="card">
+            <ul>
+                <li><strong>Immediate:</strong> You lose access to your account</li>
+                <li><strong>Within 7 days:</strong> Full data deletion from active databases</li>
+                <li><strong>Within 30 days:</strong> All cached data purged from backups</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 36px;">
+            <a class="email-link" href="mailto:aacrazyenterprises@gmail.com?subject=Delete%20My%20Account">📧 Request Deletion by Email</a>
+            <p style="margin-top: 12px; color: #5A6B7C; font-size: 14px;">Or contact us anytime at aacrazyenterprises@gmail.com</p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 CallSwift. All rights reserved.</p>
+        <p style="margin-top: 4px;">
+            <a href="mailto:aacrazyenterprises@gmail.com">aacrazyenterprises@gmail.com</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
